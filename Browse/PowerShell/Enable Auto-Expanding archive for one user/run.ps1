@@ -1,34 +1,40 @@
-# check for Admin
+# Check for Admin
 If (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
 {
+    Write-Host "Not running as administrator. Restarting with elevated privileges..."
     Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
 
-# Install ExOM
-Install-Module -Name ExchangeOnlineManagement
+Write-Host "Running with Administrator privileges..."
 
-#bypass script run policy
+$UPN = Read-Host "Enter email address of user"
+
+Write-Host "Installing ExchangeOnlineManagement module..."
+Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
+
+Write-Host "Setting execution policy to Bypass..."
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
-# Import ExchangeOnlineManagement module
+Write-Host "Importing ExchangeOnlineManagement module..."
 Import-Module ExchangeOnlineManagement
 
-# Connect to Exchange Online
-Connect-ExchangeOnline # Login
-$UPN = Read-Host "Enter email address of user" # get email address of customer
+Write-Host "Connecting to Exchange Online..."
+Connect-ExchangeOnline
 
-try{
-    #Enable auto-expanding archive
+try {
+    Write-Host "Enabling auto-expanding archive..."
     Enable-Mailbox -Identity $UPN -AutoExpandingArchive
 
-    #Test if enabled
+    Write-Host "Verifying settings..."
     Get-Mailbox $UPN | FL AutoExpandingArchiveEnabled
 }
-catch{
+catch {
     Write-Host "Failed to enable auto-expanding archive: $_" -ForegroundColor Red
 }
 
-#Disconnect
+Write-Host "Disconnecting from Exchange Online..."
 Disconnect-ExchangeOnline
-pause
+
+Write-Host "Done. Press any key to exit."
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
