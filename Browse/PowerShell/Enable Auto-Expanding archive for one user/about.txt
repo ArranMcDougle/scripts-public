@@ -1,0 +1,1 @@
+PowerShell script that enabled Auto-Expanding Archive for an email address within the same organisation as the administrator.

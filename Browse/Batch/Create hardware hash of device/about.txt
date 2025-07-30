@@ -1,0 +1,1 @@
+Creates a zip file containing the device hash (.csv) and other information. You must be an administrator to run this.
