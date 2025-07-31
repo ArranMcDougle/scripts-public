@@ -1,1 +1,1 @@
-PowerShell script that recovers emails, one by one, from the Deleted folder in Outlook from the primary address of the primary profile. Admin not required.
+PowerShell script that recovers emails, one by one, from the Deleted folder in Outlook Classic from the primary address of the default profile. Admin not required.

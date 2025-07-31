@@ -3,7 +3,7 @@ $outlook = New-Object -ComObject Outlook.Application
 $namespace = $outlook.GetNamespace("MAPI")
 
 # Log on to the "Recovery" profile (interactive window may appear if not already open)
-$namespace.Logon("Recovery", $null, $false, $true)
+$namespace.Logon("", $null, $false, $true)
 
 # Get Deleted Items (3) and Inbox (6) for that profile
 $deleted = $namespace.GetDefaultFolder(3)  # Deleted Items
