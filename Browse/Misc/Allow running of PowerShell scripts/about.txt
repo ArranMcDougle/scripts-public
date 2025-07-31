@@ -1,0 +1,1 @@
+After running once, PowerShell scripts can be run using "Run with PowerShell" without needing a menu or copy/paste.
