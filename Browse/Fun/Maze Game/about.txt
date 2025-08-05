@@ -1,0 +1,1 @@
+A simple randomly-generated maze you can navigate through using WASD controls.
