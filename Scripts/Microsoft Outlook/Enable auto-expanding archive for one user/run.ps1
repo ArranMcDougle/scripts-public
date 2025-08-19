@@ -10,8 +10,11 @@ Write-Host "Running with Administrator privileges..."
 
 $UPN = Read-Host "Enter email address of user"
 
-Write-Host "Installing ExchangeOnlineManagement module..."
-Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
+# Install module if missing
+if (-not (Get-Module -ListAvailable -Name ExchangeOnlineManagement)) {
+    Write-Host "Installing ExchangeOnlineManagement module..."
+    Install-Module -Name ExchangeOnlineManagement -Force -AllowClobber
+}
 
 Write-Host "Setting execution policy to Bypass..."
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
