@@ -100,3 +100,4 @@ if (-not (Get-RetentionPolicy -ErrorAction SilentlyContinue | Where-Object {$_.N
     Write-Host "Creating retention policy '$policyName'..."
     New-RetentionPolicy -Name $policyName -RetentionPolicyTagLinks $tagName
 }
+pause

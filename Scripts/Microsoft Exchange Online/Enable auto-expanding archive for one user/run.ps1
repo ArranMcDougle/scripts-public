@@ -41,3 +41,4 @@ Disconnect-ExchangeOnline
 
 Write-Host "Done. Press any key to exit."
 $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+pause

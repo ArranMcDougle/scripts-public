@@ -36,3 +36,4 @@ for ($i = $deleted.Items.Count; $i -gt 0; $i--) {
 }
 
 Write-Host "Done! All mail items from 'Recovery' profile moved from Deleted Items to Recovered Items."
+pause
