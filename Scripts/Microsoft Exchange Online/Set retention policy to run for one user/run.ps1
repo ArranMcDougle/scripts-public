@@ -40,15 +40,8 @@ if (($selection -as [int]) -and $selection -ge 1 -and $selection -le $policies.C
     Write-Host "You selected: $selectedPolicy"
     $answer = read-host "Enable policy for user? (Y/N)"
     if ($answer.ToLower() -eq 'y') { 
-    # Ensure the archive mailbox is enabled
-    $mbx = Get-Mailbox -Identity $UPN
-    if ($mbx.ArchiveStatus -ne "Active") {
-        Write-Host "Enabling archive mailbox for $UPN..."
-        Enable-Mailbox -Identity $UPN -Archive
-    }
     # Assign policy to mailbox"
     Set-Mailbox -Identity $UPN -RetentionPolicy $selectedPolicy
-    Start-ManagedFolderAssistant -Identity $UPN
     } else {
     Write-Host "Policy application cancelled."
     } 
@@ -60,3 +53,8 @@ if (($selection -as [int]) -and $selection -ge 1 -and $selection -le $policies.C
 # Check if applied
 Get-Mailbox -Identity $UPN | Select-Object DisplayName,RetentionPolicy
 pause
+
+Write-Host "Disconnecting from Exchange Online..."
+Disconnect-ExchangeOnline
+Write-Host "Done. Press any key to exit."
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

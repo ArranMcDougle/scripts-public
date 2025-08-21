@@ -23,6 +23,15 @@ Import-Module ExchangeOnlineManagement
 Write-Host "Connecting to Exchange Online..."
 Connect-ExchangeOnline
 
+# Get all retention policies
+$policies = Get-RetentionPolicy
+
+# List policies with numbers
+Write-Host "Existing Retention Policies:"
+for ($i = 0; $i -lt $policies.Count; $i++) {
+    Write-Host "$($i+1): $($policies[$i].Name)"
+}
+
 $actionList = @("Archive","Delete","Permanently Delete")
 
 # Function: Show a numeric menu and return a valid selection
@@ -33,7 +42,7 @@ function Get-MenuSelection {
     )
 
     while ($true) {
-        Write-Host "Please select an option by number:`n"
+        Write-Host "Please select an action for the new policy by number:`n"
         
         for ($i = 0; $i -lt $Options.Count; $i++) {
             Write-Host "[$($i+1)] $($Options[$i])"
@@ -100,4 +109,8 @@ if (-not (Get-RetentionPolicy -ErrorAction SilentlyContinue | Where-Object {$_.N
     Write-Host "Creating retention policy '$policyName'..."
     New-RetentionPolicy -Name $policyName -RetentionPolicyTagLinks $tagName
 }
-pause
+
+Write-Host "Disconnecting from Exchange Online..."
+Disconnect-ExchangeOnline
+Write-Host "Done. Press any key to exit."
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

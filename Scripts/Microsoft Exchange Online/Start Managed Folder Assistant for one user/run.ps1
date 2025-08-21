@@ -5,7 +5,6 @@ If (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     exit
 }
-
 Write-Host "Running with Administrator privileges..."
 
 $UPN = Read-Host "Enter email address of user"
@@ -25,19 +24,17 @@ Import-Module ExchangeOnlineManagement
 Write-Host "Connecting to Exchange Online..."
 Connect-ExchangeOnline
 
-try {
-    Write-Host "Enabling auto-expanding archive..."
-    Enable-Mailbox -Identity $UPN -AutoExpandingArchive
-
-    Write-Host "Verifying settings..."
-    Get-Mailbox $UPN | FL AutoExpandingArchiveEnabled
+# Ensure the archive mailbox is enabled
+$mbx = Get-Mailbox -Identity $UPN
+if ($mbx.ArchiveStatus -ne "Active") {
+    Write-Host "Enabling archive mailbox for $UPN..."
+    Enable-Mailbox -Identity $UPN -Archive
 }
-catch {
-    Write-Host "Failed to enable auto-expanding archive: $_" -ForegroundColor Red
-}
+# Enable Managed Folder Assistant
+Write-Host "Starting Managed Folder Assistant"
+Start-ManagedFolderAssistant -Identity $UPN
 
 Write-Host "Disconnecting from Exchange Online..."
 Disconnect-ExchangeOnline
-
 Write-Host "Done. Press any key to exit."
 $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

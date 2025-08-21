@@ -1,0 +1,1 @@
+Enables Managed Folder Asssitant for a single mailbox, enabhling archiving policies to immediately start processing items.
