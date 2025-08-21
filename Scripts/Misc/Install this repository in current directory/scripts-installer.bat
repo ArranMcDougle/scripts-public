@@ -14,7 +14,7 @@ cls
 
 echo Enabling Powershell scripts...
 
-Powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%CD%\scripts-public\Scripts\Local Permissions\Allow running of PowerShell scripts\run.ps1"
+Powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%CD%\scripts-public\Scripts\Local Permissions\Allow running of PowerShell scripts\run.bat"
 
 echo Install complete!
 pause
