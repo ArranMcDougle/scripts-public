@@ -1,0 +1,1 @@
+powershell -Command "Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command Set-ExecutionPolicy Unrestricted -Scope LocalMachine' -Verb RunAs"
