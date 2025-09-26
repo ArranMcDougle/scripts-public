@@ -1,1 +1,0 @@
-The Exchange Online admin goes step-by-step to create a retention policy through PowerShell.

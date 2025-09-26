@@ -1,1 +1,0 @@
-Gives Exchange admin a list of retention policies which they can apply to a specific user, then allows them to apply.
