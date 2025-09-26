@@ -1,0 +1,1 @@
+Installs Git and prerequisites to then clone this scripts-public repository into the current directory. Also automatically runs the Powershell-script-enabling batch.
