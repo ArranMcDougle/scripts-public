@@ -3,7 +3,7 @@ set /p letter=Enter unused drive letter:
 
 mountvol %letter%: /s || goto :error
 set FontPath=%letter%:\EFI\Microsoft\Boot\Fonts
-set BackupPath="C:\ESP Font Backup"
+set BackupPath="C:\ESP_FontBackup"
 if not exist "%FontPath%" goto :error
 
 echo Creating backup at %BackupPath%
