@@ -1,0 +1,1 @@
+Clears out unwanted Boot fonts from EFI to provide sufficient room for Windows 11 installation when System Partition error occurs.
